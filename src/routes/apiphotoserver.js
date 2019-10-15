@@ -128,7 +128,7 @@ router.put('/api/album',(req,res)=>{
     const {_id} = req.body;
     var params = req.body
     
-    Album.useFindAndModify({_id},params,{new: true},(err,albumUpdated)=>{
+    Album.findOneAndUpdate({_id},params,{new: true},(err,albumUpdated)=>{
         if(err || !albumUpdated){
             res.status(404).json({
                 status:"Error",
