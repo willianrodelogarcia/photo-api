@@ -124,4 +124,38 @@ router.post('/api/album',(req,res)=>{
 
 });
 
+router.put('/api/album',(req,res)=>{
+    const {_id} = req.body;
+    var params = req.body
+    
+    Album.useFindAndModify({_id},params,{new: true},(err,albumUpdated)=>{
+        if(err || !albumUpdated){
+            res.status(404).json({
+                status:"Error",
+                message:"No se pudo actualizar el dato"
+            });
+        }
+        res.status(200).json({
+            status:"OK",
+            message:"Dato Actualizado"
+        });
+    });
+});
+
+router.get('/api/album/:id',(req,res)=>{
+    const {id} = req.params;
+    Album.findById(id,(err,albums)=>{
+        if(err || !albums){
+            res.status(404).json({
+                status:"Error",
+                message:"No se pudo obtener el dato"
+            });
+        }
+        res.status(200).json({
+            status:"OK",
+            albums
+        });
+    });
+});
+
 module.exports = router;
