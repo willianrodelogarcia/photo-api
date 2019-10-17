@@ -192,13 +192,13 @@ router.delete('/api/photo/:id',(req,res)=>{
     });
 });
 
-router.delete('/api/album/:id',(req,res)=>{
+router.post('/api/album/:id',(req,res)=>{
     const {id} = req.params;
     const paramsB = req.body;
 
     var urlPhoto = paramsB.urlPhoto;
     var name = paramsB.name
-
+    //console.log(paramsB)
     const query = {"$pull":{"photos":{ urlPhoto, name } } };
     
     Album.findOneAndUpdate({_id:id},query,(err,albumDelete)=>{
