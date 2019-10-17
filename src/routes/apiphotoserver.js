@@ -207,7 +207,9 @@ router.delete('/api/album/:id',(req,res)=>{
         }
         res.status(200).json({
             status:"OK",
-            message:"Dato Eliminado"
+            message:"Dato Eliminado",
+            albumDelete,
+            query
         });
     });
 
