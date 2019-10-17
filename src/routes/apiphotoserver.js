@@ -176,4 +176,43 @@ router.get('/api/album/:id',(req,res)=>{
     });
 });
 
+router.delete('/api/photo/:id',(req,res)=>{
+    const {id} = req.params;
+    Photo.findOneAndDelete({_id:id},(err,photoDelete)=>{
+        if(err || !photoDelete){
+            res.status(404).json({
+                status:"Error",
+                message:"No se pudo eliminar el dato"
+            });
+        }
+        res.status(200).json({
+            status:"OK",
+            message:"Dato Eliminado"
+        });
+    });
+});
+
+router.delete('/api/album/:id',(req,res)=>{
+    const {id} = req.params;
+    const {urlPhoto,name} = req.body;
+
+    const query = {"$pull":{"photos":{ urlPhoto, name } } };
+    
+    Album.findOneAndUpdate({_id:id},query,(err,albumDelete)=>{
+        if(err || !albumDelete){
+            res.status(404).json({
+                status:"Error",
+                message:"No se pudo eliminar el dato"
+            });
+        }
+        res.status(200).json({
+            status:"OK",
+            message:"Dato Eliminado"
+        });
+    });
+
+});
+
+
+
 module.exports = router;
