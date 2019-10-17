@@ -194,7 +194,10 @@ router.delete('/api/photo/:id',(req,res)=>{
 
 router.delete('/api/album/:id',(req,res)=>{
     const {id} = req.params;
-    const {urlPhoto,name} = req.body;
+    const paramsB = req.body;
+
+    var urlPhoto = paramsB.urlPhoto;
+    var name = paramsB.name
 
     const query = {"$pull":{"photos":{ urlPhoto, name } } };
     
